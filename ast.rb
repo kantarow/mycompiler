@@ -102,7 +102,7 @@ module AST
       puts "%#{right_result_idx} = load i32, i32* %#{right_result_idx-1}, align 4"
 
       idx = VariableCounter.instance.next
-      puts "%#{idx} = udiv i32 %#{left_result_idx}, %#{right_result_idx}"
+      puts "%#{idx} = sdiv i32 %#{left_result_idx}, %#{right_result_idx}"
       idx = VariableCounter.instance.next
       puts "%#{idx} = alloca i32, align 4"
       puts "store i32 %#{idx-1}, i32* %#{idx}, align 4"
