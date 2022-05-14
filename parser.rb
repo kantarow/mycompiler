@@ -7,7 +7,7 @@
 require 'racc/parser.rb'
 class Parser < Racc::Parser
 
-module_eval(<<'...end parser.y/module_eval...', 'parser.y', 18)
+module_eval(<<'...end parser.y/module_eval...', 'parser.y', 19)
 
 def parse(text)
   @chars = text.chars
@@ -40,28 +40,34 @@ end
 ##### State transition tables begin ###
 
 racc_action_table = [
-     8,     9,     6,     7,     5,    16,     8,     9,     6,     7,
-     3,     3,     4,     4,     3,     3,     4,     4,     3,     3,
-     4,     4,     8,     9,     8,     9,    11 ]
+     9,    10,     7,     8,     6,    18,     3,     4,    13,     5,
+     9,    10,     7,     8,     3,     4,   nil,     5,     3,     4,
+   nil,     5,     3,     4,   nil,     5,     3,     4,   nil,     5,
+     3,     4,   nil,     5,     3,     4,   nil,     5,     9,    10,
+     9,    10,     9,    10 ]
 
 racc_action_check = [
-    10,    10,    10,    10,     1,    10,     2,     2,     2,     2,
-     0,     3,     0,     3,     6,     7,     6,     7,     8,     9,
-     8,     9,    12,    12,    13,    13,     5 ]
+    12,    12,    12,    12,     1,    12,     0,     0,     6,     0,
+     2,     2,     2,     2,     3,     3,   nil,     3,     4,     4,
+   nil,     4,     7,     7,   nil,     7,     8,     8,   nil,     8,
+     9,     9,   nil,     9,    10,    10,   nil,    10,    11,    11,
+    14,    14,    15,    15 ]
 
 racc_action_pointer = [
-     4,     4,     4,     5,   nil,    26,     8,     9,    12,    13,
-    -2,   nil,    20,    22,   nil,   nil,   nil ]
+     1,     4,     8,     9,    13,   nil,     8,    17,    21,    25,
+    29,    36,    -2,   nil,    38,    40,   nil,   nil,   nil ]
 
 racc_action_default = [
-    -2,    -9,    -1,    -9,    -8,    -9,    -9,    -9,    -9,    -9,
-    -9,    17,    -3,    -4,    -5,    -6,    -7 ]
+    -2,   -10,    -1,   -10,   -10,    -9,   -10,   -10,   -10,   -10,
+   -10,    -7,   -10,    19,    -3,    -4,    -5,    -6,    -8 ]
 
 racc_goto_table = [
-     2,     1,   nil,    10,   nil,   nil,    12,    13,    14,    15 ]
+     2,     1,   nil,    11,    12,   nil,   nil,    14,    15,    16,
+    17 ]
 
 racc_goto_check = [
-     2,     1,   nil,     2,   nil,   nil,     2,     2,     2,     2 ]
+     2,     1,   nil,     2,     2,   nil,   nil,     2,     2,     2,
+     2 ]
 
 racc_goto_pointer = [
    nil,     1,     0 ]
@@ -77,12 +83,13 @@ racc_reduce_table = [
   3, 11, :_reduce_4,
   3, 11, :_reduce_5,
   3, 11, :_reduce_6,
-  3, 11, :_reduce_7,
-  1, 11, :_reduce_8 ]
+  2, 11, :_reduce_7,
+  3, 11, :_reduce_8,
+  1, 11, :_reduce_9 ]
 
-racc_reduce_n = 9
+racc_reduce_n = 10
 
-racc_shift_n = 17
+racc_shift_n = 19
 
 racc_token_table = {
   false => 0,
@@ -169,13 +176,20 @@ module_eval(<<'.,.,', 'parser.y', 11)
 
 module_eval(<<'.,.,', 'parser.y', 12)
   def _reduce_7(val, _values, result)
-     result = AST::Brachet.new(val[1])
+     result = AST::Minus.new(val[1])
     result
   end
 .,.,
 
 module_eval(<<'.,.,', 'parser.y', 13)
   def _reduce_8(val, _values, result)
+     result = AST::Brachet.new(val[1])
+    result
+  end
+.,.,
+
+module_eval(<<'.,.,', 'parser.y', 14)
+  def _reduce_9(val, _values, result)
      result = AST::Integer.new(val[0])
     result
   end

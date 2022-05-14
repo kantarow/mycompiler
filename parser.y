@@ -10,6 +10,7 @@ rule
       | exp '-' exp { result = AST::Sub.new(val[0], val[2]) }
       | exp '*' exp { result = AST::Mul.new(val[0], val[2]) }
       | exp '/' exp { result = AST::Div.new(val[0], val[2]) }
+      | '-' exp { result = AST::Minus.new(val[1]) }
       | '(' exp ')' { result = AST::Brachet.new(val[1]) }
       | INTEGER { result = AST::Integer.new(val[0]) }
 end

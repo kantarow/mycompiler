@@ -11,6 +11,23 @@ module AST
     end
   end
 
+  class Minus
+    def initialize(exp)
+      @exp = exp
+    end
+
+    def generate
+      @exp.generate
+      exp_idx = VariableCounter.instance.next
+      result_idx = VariableCounter.instance.next
+      store_idx = VariableCounter.instance.next
+      puts "%#{exp_idx} = load i32, i32* %#{exp_idx-1}, align 4"
+      puts "%#{result_idx} = sub i32 0, %#{exp_idx}"
+      puts "%#{store_idx} = alloca i32, align 4"
+      puts "store i32 %#{result_idx}, i32* %#{store_idx}"
+    end
+  end
+
   class BinaryOp
     attr_accessor :left, :right
 
@@ -97,6 +114,10 @@ module AST
 
     def initialize(exp)
       @exp = exp
+    end
+
+    def generate
+      exp.generate
     end
   end
 end
