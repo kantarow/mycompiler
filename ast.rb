@@ -31,7 +31,7 @@ module AST
       puts "%#{right_result_idx} = load i32, i32* %#{right_result_idx-1}, align 4"
 
       idx = VariableCounter.instance.next
-      puts "%#{idx} = add nsw i32 %#{left_result_idx}, %#{right_result_idx}"
+      puts "%#{idx} = add i32 %#{left_result_idx}, %#{right_result_idx}"
       idx = VariableCounter.instance.next
       puts "%#{idx} = alloca i32, align 4"
       puts "store i32 %#{idx-1}, i32* %#{idx}, align 4"
@@ -39,12 +39,57 @@ module AST
   end
 
   class Sub < BinaryOp
+    def generate
+      @left.generate
+      left_result_idx = VariableCounter.instance.next
+      puts "%#{left_result_idx} = load i32, i32* %#{left_result_idx-1}, align 4"
+
+      @right.generate
+      right_result_idx = VariableCounter.instance.next
+      puts "%#{right_result_idx} = load i32, i32* %#{right_result_idx-1}, align 4"
+
+      idx = VariableCounter.instance.next
+      puts "%#{idx} = sub i32 %#{left_result_idx}, %#{right_result_idx}"
+      idx = VariableCounter.instance.next
+      puts "%#{idx} = alloca i32, align 4"
+      puts "store i32 %#{idx-1}, i32* %#{idx}, align 4"
+    end
   end
 
   class Mul < BinaryOp
+    def generate
+      @left.generate
+      left_result_idx = VariableCounter.instance.next
+      puts "%#{left_result_idx} = load i32, i32* %#{left_result_idx-1}, align 4"
+
+      @right.generate
+      right_result_idx = VariableCounter.instance.next
+      puts "%#{right_result_idx} = load i32, i32* %#{right_result_idx-1}, align 4"
+
+      idx = VariableCounter.instance.next
+      puts "%#{idx} = mul i32 %#{left_result_idx}, %#{right_result_idx}"
+      idx = VariableCounter.instance.next
+      puts "%#{idx} = alloca i32, align 4"
+      puts "store i32 %#{idx-1}, i32* %#{idx}, align 4"
+    end
   end
 
   class Div < BinaryOp
+    def generate
+      @left.generate
+      left_result_idx = VariableCounter.instance.next
+      puts "%#{left_result_idx} = load i32, i32* %#{left_result_idx-1}, align 4"
+
+      @right.generate
+      right_result_idx = VariableCounter.instance.next
+      puts "%#{right_result_idx} = load i32, i32* %#{right_result_idx-1}, align 4"
+
+      idx = VariableCounter.instance.next
+      puts "%#{idx} = udiv i32 %#{left_result_idx}, %#{right_result_idx}"
+      idx = VariableCounter.instance.next
+      puts "%#{idx} = alloca i32, align 4"
+      puts "store i32 %#{idx-1}, i32* %#{idx}, align 4"
+    end
   end
 
   class Brachet
